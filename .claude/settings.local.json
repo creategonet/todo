@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(if \\(-not $?\\) { \"Directory is empty or new\" })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Dan\\\\Desktop\\\\work\\\\nextmoving\\\\public\\\\images\" | ForEach-Object { Write-Output $_.Name })"
+    ]
+  }
+}
