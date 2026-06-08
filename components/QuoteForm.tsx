@@ -1,67 +1,49 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronDown, ClipboardList, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 
-const schema = z.object({
-  movingFrom: z.string().min(1, 'Required'),
-  movingTo: z.string().min(1, 'Required'),
-  moveDate: z.string().min(1, 'Required'),
-  homeSize: z.string().min(1, 'Required'),
-})
+const homeSizes = ['Studio', '1 Bedroom', '2 Bedrooms', '3 Bedrooms', '4 Bedrooms', '5+ Bedrooms', 'Office / Commercial']
 
-type FormData = z.infer<typeof schema>
-
-const homeSizes = [
-  'Studio / 1 Bedroom',
-  '2 Bedrooms',
-  '3 Bedrooms',
-  '4 Bedrooms',
-  '5+ Bedrooms',
-  'Office / Commercial',
-]
-
-const cities = [
-  'New York, NY',
-  'Los Angeles, CA',
-  'Chicago, IL',
-  'Houston, TX',
-  'Phoenix, AZ',
-  'Philadelphia, PA',
-  'San Antonio, TX',
-  'San Diego, CA',
-  'Dallas, TX',
-  'San Jose, CA',
-  'Other',
+const steps = [
+  { pct: 33, label: '33% Complete' },
+  { pct: 66, label: '66% Complete' },
+  { pct: 99, label: '99% Complete' },
 ]
 
 export default function QuoteForm() {
-  const [submitting, setSubmitting] = useState(false)
+  const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  const [form, setForm] = useState({
+    originZip: '',
+    destinationZip: '',
+    moveDate: '',
+    moveSize: '',
+    name: '',
+    email: '',
+    phone: '',
+  })
 
-  const onSubmit = async (data: FormData) => {
+  const set = (field: string, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }))
+
+  const next = () => setStep((s) => s + 1)
+  const back = () => setStep((s) => s - 1)
+
+  const handleSubmit = async () => {
     setSubmitting(true)
     setError(null)
     try {
       const res = await fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(form),
       })
       if (!res.ok) throw new Error()
       setDone(true)
-      reset()
     } catch {
       setError('Something went wrong. Please try again or call us.')
     } finally {
@@ -71,15 +53,15 @@ export default function QuoteForm() {
 
   if (done) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-        <CheckCircle2 className="h-14 w-14 text-primary mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Quote Request Received!</h3>
-        <p className="text-gray-500 text-sm mb-6">
+      <div className="bg-[#8DC63F] rounded-2xl p-8 text-center shadow-xl">
+        <CheckCircle2 className="h-14 w-14 text-white mx-auto mb-4" />
+        <h3 className="text-xl font-bold text-white mb-2">Quote Request Received!</h3>
+        <p className="text-white/80 text-sm mb-6">
           We&apos;ll contact you within 1 business hour with your personalised quote.
         </p>
         <button
-          onClick={() => setDone(false)}
-          className="bg-primary text-white px-6 py-2.5 rounded font-semibold hover:bg-primary-dark transition-colors text-sm"
+          onClick={() => { setDone(false); setStep(0); setForm({ originZip: '', destinationZip: '', moveDate: '', moveSize: '', name: '', email: '', phone: '' }) }}
+          className="bg-gray-900 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm"
         >
           Submit Another
         </button>
@@ -87,72 +69,148 @@ export default function QuoteForm() {
     )
   }
 
+  const { pct, label } = steps[step]
+
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8">
-      <div className="flex items-center gap-2 mb-6">
-        <ClipboardList className="h-5 w-5 text-primary" />
-        <h3 className="font-bold text-gray-900 text-sm uppercase tracking-wider">Get Your Free Quote</h3>
-      </div>
+    <div className="bg-[#8DC63F] rounded-2xl p-7 shadow-xl">
+      {/* Progress bar — hidden on first step */}
+      {step > 0 && (
+        <div className="mb-5">
+          <div className="w-full bg-white/40 rounded-full h-2.5 mb-1.5">
+            <div
+              className="bg-gray-900 h-2.5 rounded-full transition-all duration-500"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          <p className="text-center text-gray-900 font-semibold text-sm">{label}</p>
+        </div>
+      )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5" noValidate>
-        {/* Moving From */}
-        <div className="relative">
-          <select
-            {...register('movingFrom')}
-            className={`input-field appearance-none pr-10 ${errors.movingFrom ? 'input-error' : ''}`}
+      {/* Step 1 — Zip Codes */}
+      {step === 0 && (
+        <div className="space-y-4">
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Origin Zip Code *</label>
+            <input
+              type="text"
+              value={form.originZip}
+              onChange={(e) => set('originZip', e.target.value)}
+              placeholder="Origin Zip Code..."
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors placeholder-gray-400"
+            />
+          </div>
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Destination Zip Code *</label>
+            <input
+              type="text"
+              value={form.destinationZip}
+              onChange={(e) => set('destinationZip', e.target.value)}
+              placeholder="Destination Zip Code..."
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors placeholder-gray-400"
+            />
+          </div>
+          <button
+            onClick={() => form.originZip && form.destinationZip && next()}
+            className="bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm disabled:opacity-50"
           >
-            <option value="">Moving From</option>
-            {cities.map((c) => <option key={c} value={c}>{c}</option>)}
-          </select>
-          <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
-          {errors.movingFrom && <p className="text-red-500 text-xs mt-1">{errors.movingFrom.message}</p>}
+            Continue
+          </button>
         </div>
+      )}
 
-        {/* Moving To */}
-        <div>
-          <input
-            {...register('movingTo')}
-            type="text"
-            placeholder="Moving To"
-            className={`input-field ${errors.movingTo ? 'input-error' : ''}`}
-          />
-          {errors.movingTo && <p className="text-red-500 text-xs mt-1">{errors.movingTo.message}</p>}
+      {/* Step 2 — Move Date & Size */}
+      {step === 1 && (
+        <div className="space-y-4">
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Move Date *</label>
+            <input
+              type="date"
+              value={form.moveDate}
+              onChange={(e) => set('moveDate', e.target.value)}
+              min={new Date().toISOString().split('T')[0]}
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Move Size *</label>
+            <select
+              value={form.moveSize}
+              onChange={(e) => set('moveSize', e.target.value)}
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors appearance-none"
+            >
+              <option value="">Studio</option>
+              {homeSizes.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={back}
+              className="bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm"
+            >
+              Back
+            </button>
+            <button
+              onClick={() => form.moveDate && next()}
+              className="bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm"
+            >
+              Continue
+            </button>
+          </div>
         </div>
+      )}
 
-        {/* Move Date */}
-        <div>
-          <input
-            {...register('moveDate')}
-            type="date"
-            min={new Date().toISOString().split('T')[0]}
-            className={`input-field ${errors.moveDate ? 'input-error' : ''}`}
-          />
-          {errors.moveDate && <p className="text-red-500 text-xs mt-1">{errors.moveDate.message}</p>}
+      {/* Step 3 — Contact Info */}
+      {step === 2 && (
+        <div className="space-y-4">
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Name *</label>
+            <input
+              type="text"
+              value={form.name}
+              onChange={(e) => set('name', e.target.value)}
+              placeholder="Your Name..."
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors placeholder-gray-400"
+            />
+          </div>
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Your Email *</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={(e) => set('email', e.target.value)}
+              placeholder="Your Email..."
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors placeholder-gray-400"
+            />
+          </div>
+          <div>
+            <label className="block font-bold text-gray-900 text-sm mb-1.5">Phone Number *</label>
+            <input
+              type="tel"
+              value={form.phone}
+              onChange={(e) => set('phone', e.target.value)}
+              placeholder="Your Number..."
+              className="w-full bg-white border-2 border-transparent rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors placeholder-gray-400"
+            />
+          </div>
+          <p className="text-center font-bold text-gray-900 text-sm">Save up to 20% on moving costs</p>
+          {error && <p className="text-red-800 text-sm font-medium">{error}</p>}
+          <div className="flex gap-3">
+            <button
+              onClick={back}
+              className="bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm"
+            >
+              Back
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={submitting || !form.name || !form.email || !form.phone}
+              className="bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm disabled:opacity-50"
+            >
+              {submitting ? 'Sending…' : 'Free Estimate'}
+            </button>
+          </div>
         </div>
-
-        {/* Home Size */}
-        <div className="relative">
-          <select
-            {...register('homeSize')}
-            className={`input-field appearance-none pr-10 ${errors.homeSize ? 'input-error' : ''}`}
-          >
-            <option value="">Home Size</option>
-            {homeSizes.map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
-          <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
-          {errors.homeSize && <p className="text-red-500 text-xs mt-1">{errors.homeSize.message}</p>}
-        </div>
-
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full btn-primary py-4 rounded font-bold text-sm uppercase tracking-wider"
-        >
-          {submitting ? 'Submitting…' : 'Get My Free Quote'}
-        </button>
-      </form>
+      )}
     </div>
   )
 }

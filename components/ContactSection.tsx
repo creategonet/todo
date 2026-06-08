@@ -52,14 +52,24 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right — map */}
-          <div className="h-80 bg-gray-200 rounded-xl flex items-center justify-center">
-            <div className="text-center text-gray-400">
-              <MapPin className="h-10 w-10 mx-auto mb-2" />
-              <p className="text-sm font-medium">Google Maps</p>
-              <p className="text-xs opacity-70">Add &lt;iframe&gt; embed here</p>
-            </div>
-          </div>
+          {/* Right — Google Maps */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=3437+NW+55th+St+Fort+Lauderdale+FL+33309"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+          >
+            <iframe
+              src="https://maps.google.com/maps?q=3437+NW+55th+St,+Fort+Lauderdale,+FL+33309&output=embed&z=15"
+              width="100%"
+              height="340"
+              style={{ border: 0, display: 'block', pointerEvents: 'none' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Priority Moving Group location"
+            />
+          </a>
         </div>
       </div>
     </section>

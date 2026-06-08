@@ -1,5 +1,4 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 const links: Record<string, { label: string; href: string }[]> = {
@@ -31,12 +30,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="mb-5">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/logo.png"
                 alt="Priority Moving Group"
-                width={180}
-                height={54}
-                className="h-12 w-auto object-contain brightness-0 invert"
+                className="h-12 w-auto"
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
