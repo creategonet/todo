@@ -74,9 +74,6 @@ export default function Services() {
               </div>
               <h3 className="font-bold text-gray-900 text-lg mb-2">{title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
-              <div className="flex items-center gap-1 text-primary font-semibold text-sm mt-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Learn more →
-              </div>
             </div>
           ))}
         </div>

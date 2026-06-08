@@ -1,15 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Phone, Menu, X, Truck } from 'lucide-react'
+import { Phone, Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
-  { label: 'About Us', href: '#why-choose-us' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/#hero' },
+  { label: 'Services', href: '/#services' },
+  { label: 'About Us', href: '/#why-choose-us' },
+  { label: 'How It Works', href: '/#how-it-works' },
+  { label: 'Reviews', href: '/#reviews' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Navbar() {
@@ -31,14 +32,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-2 group">
-            <div className="bg-primary rounded p-2 group-hover:bg-primary-dark transition-colors">
-              <Truck className="h-6 w-6 text-white" />
-            </div>
-            <div className="leading-none">
-              <p className="font-black text-base tracking-widest text-gray-900 uppercase">Priority</p>
-              <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-widest">Moving Group</p>
-            </div>
+          <a href="/">
+            <Image
+              src="/images/logo.png"
+              alt="Priority Moving Group"
+              width={180}
+              height={54}
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </a>
 
           {/* Desktop links */}

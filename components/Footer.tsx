@@ -1,9 +1,26 @@
-import { Truck, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const links = {
-  Services: ['Residential Moving', 'Commercial Moving', 'Long-Distance Moving', 'Packing Services', 'Storage Solutions'],
-  Company: ['About Us', 'How It Works', 'Reviews', 'Careers', 'Blog'],
-  Support: ['Get a Quote', 'Contact Us', 'FAQ', 'Service Areas', 'Privacy Policy'],
+const links: Record<string, { label: string; href: string }[]> = {
+  Services: [
+    { label: 'Residential Moving', href: '#services' },
+    { label: 'Commercial Moving', href: '#services' },
+    { label: 'Long-Distance Moving', href: '#services' },
+    { label: 'Packing Services', href: '#services' },
+    { label: 'Storage Solutions', href: '#services' },
+  ],
+  Company: [
+    { label: 'About Us', href: '#why-choose-us' },
+    { label: 'How It Works', href: '#how-it-works' },
+    { label: 'Reviews', href: '#reviews' },
+    { label: 'Blog', href: '#' },
+  ],
+  Legal: [
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Refund Policy', href: '/refund-policy' },
+    { label: 'Terms and Conditions', href: '/terms-and-conditions' },
+  ],
 }
 
 export default function Footer() {
@@ -13,36 +30,40 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-5">
-              <div className="bg-primary rounded p-2">
-                <Truck className="h-6 w-6 text-white" />
-              </div>
-              <div className="leading-none">
-                <p className="font-black text-base tracking-widest uppercase">Priority</p>
-                <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-widest">Moving Group</p>
-              </div>
+            <div className="mb-5">
+              <Image
+                src="/images/logo.png"
+                alt="Priority Moving Group"
+                width={180}
+                height={54}
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
               Professional moving services for homes and businesses. We make your move
               simple, safe, and stress-free every time.
             </p>
             <div className="space-y-3">
-              <a href="tel:5551234567" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
-                <Phone className="h-4 w-4 text-primary flex-shrink-0" /> (555) 123-4567
+              <a href="tel:2394960310" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
+                <Phone className="h-4 w-4 text-primary flex-shrink-0" /> (239) 496-0310
               </a>
-              <a href="mailto:info@prioritymoving.com" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
-                <Mail className="h-4 w-4 text-primary flex-shrink-0" /> info@prioritymoving.com
+              <a href="mailto:dispatch@prioritymovinggroup.com" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
+                <Mail className="h-4 w-4 text-primary flex-shrink-0" /> dispatch@prioritymovinggroup.com
               </a>
               <div className="flex items-start gap-2 text-gray-400 text-sm">
-                <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> 123 Main Street, New York, NY 10001
+                <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" /> 3437 NW 55th St, Fort Lauderdale, FL 33309
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+              <a href="https://www.facebook.com/people/Priority-Moving-Group/61574392643386/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a href="#" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="#" className="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
+                <Twitter className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
@@ -52,10 +73,10 @@ export default function Footer() {
               <h4 className="font-bold text-white mb-4 text-xs uppercase tracking-widest">{cat}</h4>
               <ul className="space-y-2.5">
                 {items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
-                      {item}
-                    </a>
+                  <li key={item.label}>
+                    <Link href={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -68,9 +89,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Priority Moving Group. All rights reserved.
           </p>
           <div className="flex gap-5 text-gray-500 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Sitemap</a>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link>
           </div>
         </div>
       </div>

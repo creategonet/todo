@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { CalendarDays, Play, Star, Shield, X } from 'lucide-react'
+import { Play, Star, Shield, X } from 'lucide-react'
+import QuoteForm from '@/components/QuoteForm'
 
 function GoogleIcon() {
   return (
@@ -19,55 +20,53 @@ export default function Hero() {
   const [videoOpen, setVideoOpen] = useState(false)
 
   return (
-    <section id="hero" className="pt-16 lg:pt-20 min-h-screen flex items-center bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-0 w-full">
+    <section id="hero" className="relative pt-16 lg:pt-20 min-h-screen flex items-center overflow-hidden">
+      {/* Background image */}
+      <Image
+        src="/images/hero-movers.png"
+        alt="Professional movers unloading a truck"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/55" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-0 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left — text content */}
           <div className="space-y-7 order-2 lg:order-1">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-gray-600 tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold text-white/80 tracking-wider uppercase">
               <Shield className="h-4 w-4 text-primary" />
               Licensed &amp; Insured
             </div>
 
-            {/* Headline */}
-            <h1 className="text-5xl xl:text-6xl font-black leading-[1.05] tracking-tight">
-              <span className="text-gray-900 block">Moving Made</span>
-              <span className="text-primary block">Simple.</span>
-              <span className="text-accent block">Stress-Free.</span>
+            <h1 className="text-5xl xl:text-6xl font-black leading-[1.05] tracking-tight text-white">
+              <span className="block">Moving Made</span>
+              <span className="text-primary-light block">Simple.</span>
+              <span className="text-orange-400 block">Stress-Free.</span>
             </h1>
 
-            {/* Sub */}
-            <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+            <p className="text-white/80 text-lg leading-relaxed max-w-md">
               Reliable moving services for homes and businesses. We handle your
               belongings with care so you can focus on what matters.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="#why-choose-us"
-                className="inline-flex items-center gap-2 bg-primary text-white font-bold px-7 py-4 rounded hover:bg-primary-dark transition-colors text-sm"
-              >
-                <CalendarDays className="h-5 w-5" />
-                GET A FREE QUOTE →
-              </a>
-              <button
-                onClick={() => setVideoOpen(true)}
-                className="flex items-center gap-3 group"
-              >
-                <div className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-primary transition-colors">
-                  <Play className="h-4 w-4 fill-gray-700 group-hover:fill-primary transition-colors ml-0.5" />
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-gray-800">How It Works</p>
-                  <p className="text-xs text-gray-500">Watch video</p>
-                </div>
-              </button>
-            </div>
+            <button
+              onClick={() => setVideoOpen(true)}
+              className="flex items-center gap-3 group"
+            >
+              <div className="w-12 h-12 rounded-full border-2 border-white/50 flex items-center justify-center group-hover:border-primary transition-colors">
+                <Play className="h-4 w-4 fill-white group-hover:fill-primary transition-colors ml-0.5" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-semibold text-white">How It Works</p>
+                <p className="text-xs text-white/60">Watch video</p>
+              </div>
+            </button>
 
-            {/* Google rating */}
             <div className="flex items-center gap-2.5">
               <GoogleIcon />
               <div className="flex text-yellow-400">
@@ -75,51 +74,14 @@ export default function Hero() {
                   <Star key={i} className="h-5 w-5 fill-current" />
                 ))}
               </div>
-              <span className="font-bold text-gray-900">5.0</span>
-              <span className="text-gray-500 text-sm">Based on 500+ reviews</span>
+              <span className="font-bold text-white">5.0</span>
+              <span className="text-white/60 text-sm">Based on 500+ reviews</span>
             </div>
           </div>
 
-          {/* Right — hero visual */}
-          <div className="relative order-1 lg:order-2">
-            <div className="relative rounded-2xl overflow-hidden h-[380px] lg:h-[560px]">
-              {/* Hero photo — movers at a house */}
-              <Image
-                src="/images/hero-movers.png"
-                alt="Professional movers unloading a truck at a house"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-              />
-              {/* Dark gradient overlay so badges are readable */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-              {/* Brand overlay badge */}
-              <div className="absolute top-5 right-5 bg-primary text-white px-4 py-3 rounded-xl shadow-xl">
-                <p className="font-black text-sm tracking-wider uppercase">Priority</p>
-                <p className="text-[10px] opacity-75 uppercase tracking-widest">Moving Group</p>
-              </div>
-
-              {/* Satisfaction badge */}
-              <div className="absolute bottom-5 left-5 w-20 h-20 rounded-full bg-white border-4 border-primary shadow-xl flex items-center justify-center">
-                <div className="text-center">
-                  <p className="font-black text-primary text-sm leading-none">100%</p>
-                  <p className="text-[8px] text-gray-600 leading-tight mt-0.5">Satisfaction<br />Guaranteed</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating card */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:-right-4 bg-white rounded-xl shadow-xl px-6 py-4 flex items-center gap-4 w-max">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Star className="h-5 w-5 text-primary fill-primary" />
-              </div>
-              <div>
-                <p className="font-black text-gray-900 text-sm">2,000+</p>
-                <p className="text-xs text-gray-500">Successful Moves</p>
-              </div>
-            </div>
+          {/* Right — Quote Form */}
+          <div className="order-1 lg:order-2">
+            <QuoteForm />
           </div>
         </div>
       </div>
