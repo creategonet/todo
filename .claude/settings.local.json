@@ -5,7 +5,10 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Dan\\\\Desktop\\\\work\\\\nextmoving\\\\public\\\\images\" | ForEach-Object { Write-Output $_.Name })",
       "WebFetch(domain:www.facebook.com)",
       "Bash(copy \"c:\\\\Users\\\\Dan\\\\Desktop\\\\work\\\\todo\\\\a51e1380-bed7-4c54-bb37-d477144babb4.png\" \"c:\\\\Users\\\\Dan\\\\Desktop\\\\work\\\\todo\\\\public\\\\images\\\\logo.png\")",
-      "WebFetch(domain:www.valueaddedmoving.com)"
+      "WebFetch(domain:www.valueaddedmoving.com)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "WebFetch(domain:todo-8tshj9tff-creategonet-9521s-projects.vercel.app)"
     ]
   }
 }
