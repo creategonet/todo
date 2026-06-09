@@ -16,7 +16,7 @@ const stats = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-choose-us" className="py-20 bg-gray-50">
+    <section id="why-choose-us" className="py-20 bg-gray-50 isolate">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 

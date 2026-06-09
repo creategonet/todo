@@ -8,7 +8,11 @@
       "WebFetch(domain:www.valueaddedmoving.com)",
       "Bash(npx tsc *)",
       "Bash(npm run *)",
-      "WebFetch(domain:todo-8tshj9tff-creategonet-9521s-projects.vercel.app)"
+      "WebFetch(domain:todo-8tshj9tff-creategonet-9521s-projects.vercel.app)",
+      "Bash(cp /tmp/pptx_extract/extracted/ppt/media/image1.png \"/c/Users/Dan/Desktop/work/todo/public/images/thank-you.png\")"
+    ],
+    "additionalDirectories": [
+      "\\tmp\\pptx_extract\\extracted\\ppt\\media"
     ]
   }
 }
