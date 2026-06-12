@@ -42,8 +42,8 @@ export default function Footer() {
               simple, safe, and stress-free every time.
             </p>
             <div className="space-y-3">
-              <a href="tel:2394960310" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
-                <Phone className="h-4 w-4 text-primary flex-shrink-0" /> (239) 496-0310
+              <a href="tel:8557025478" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
+                <Phone className="h-4 w-4 text-primary flex-shrink-0" /> 855-702-5478
               </a>
               <a href="mailto:dispatch@prioritymovinggroup.com" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" /> dispatch@prioritymovinggroup.com

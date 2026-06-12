@@ -59,11 +59,11 @@ export default function Navbar() {
 
           {/* Phone CTA */}
           <a
-            href="tel:5551234567"
+            href="tel:8557025478"
             className="hidden lg:flex items-center gap-2 bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-primary-dark transition-colors"
           >
             <Phone className="h-4 w-4" />
-            (555) 123-4567
+            855-702-5478
           </a>
 
           {/* Mobile toggle */}
@@ -92,10 +92,10 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="tel:5551234567"
+              href="tel:8557025478"
               className="flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3 rounded-full mt-2"
             >
-              <Phone className="h-4 w-4" /> (555) 123-4567
+              <Phone className="h-4 w-4" /> 855-702-5478
             </a>
           </div>
         </div>

@@ -63,11 +63,11 @@ export default function ThankYouPage() {
 
             {/* CTA Button */}
             <a
-              href="tel:2394960310"
+              href="tel:8557025478"
               className="inline-flex items-center justify-center gap-3 bg-primary text-white font-bold px-12 py-5 rounded-xl hover:bg-primary-dark transition-colors text-base uppercase tracking-wider shadow-lg shadow-primary/30"
             >
               <Phone className="h-5 w-5" />
-              CALL (239) 496-0310
+              CALL 855-702-5478
             </a>
 
             {/* Back link */}

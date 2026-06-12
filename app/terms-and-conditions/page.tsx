@@ -102,7 +102,7 @@ export default function TermsAndConditions() {
       </p>
       <ul>
         <li><strong>Email:</strong> <a href="mailto:dispatch@prioritymovinggroup.com">dispatch@prioritymovinggroup.com</a></li>
-        <li><strong>Phone:</strong> <a href="tel:2394960310">(239) 496-0310</a></li>
+        <li><strong>Phone:</strong> <a href="tel:8557025478">855-702-5478</a></li>
         <li><strong>Address:</strong> 3437 NW 55th St, Fort Lauderdale, FL 33309</li>
       </ul>
     </PolicyLayout>

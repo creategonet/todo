@@ -3,7 +3,7 @@
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '(239) 496-0310', href: 'tel:2394960310' },
+  { icon: Phone, label: 'Phone', value: '855-702-5478', href: 'tel:8557025478' },
   { icon: Mail, label: 'Email', value: 'dispatch@prioritymovinggroup.com', href: 'mailto:dispatch@prioritymovinggroup.com' },
   { icon: MapPin, label: 'Address', value: '3437 NW 55th St, Fort Lauderdale, FL 33309', href: '#' },
   { icon: Clock, label: 'Hours', value: 'Mon–Sun: 10am–9pm', href: '#' },
